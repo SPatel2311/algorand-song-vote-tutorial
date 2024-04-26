@@ -46,7 +46,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 .walletButton {
@@ -73,7 +73,7 @@
   margin: 0px;
   padding: 25px;
   border-radius: 8px;
-  background: #29344b;
+  background: #fdb900;
   align-items: center;
 }
 
@@ -85,17 +85,18 @@
 }
 
 .header {
-  color: #df5e48;
+  color: #366e9f;
   text-align: center;
   font-size: 40px;
   font-weight: 600;
   margin-bottom: 8px;
+  font-style: italic;
 }
 
 .bio {
   text-align: center;
   color: rgb(247, 244, 246);
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 5px;
   margin-bottom: 8px;
   line-height: 1.4;
@@ -125,14 +126,14 @@
   border-radius: 5px;
   margin-bottom: 16px;
   width: 70%;
-  background-color: #df5e48;
+  background-color: #4869df;
   color: whitesmoke;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .mathButton:hover {
-  background: #c5513c;
-  color: whitesmoke;
+  background: #3cc53c;
+  color: rgb(245, 245, 245);
 }
 
 .disconnectwalletButton {
@@ -170,8 +171,8 @@
   position: relative;
 }
 
-.songs-container {
-  margin-top: 10px;
+.holiday-container {
+  margin-top: 15px;
   min-height: 150px;
   border-radius: 8px;
   display: flex;
@@ -182,12 +183,12 @@
   padding: 12px;
 }
 
-.song-card {
+.holiday-card {
     margin: 0px 11px 0px 10px;
     width: -webkit-fill-available;
     text-align: center;
     padding: 9px;
-    background-color: #1d2535f8;
+    background-color: #0a0a0af8;
     border-radius: 8px;
     justify-items: center;
     justify-content: center;

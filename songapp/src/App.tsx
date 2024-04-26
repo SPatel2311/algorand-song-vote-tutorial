@@ -9,8 +9,10 @@ function App() {
   const [currentAccount, setCurrentAccount] = useState<string | null>();
   const [voteState1, setVoteState1] = useState("Vote");
   const [voteState2, setVoteState2] = useState("Vote");
+  const [voteState3, setVoteState3] = useState("Vote");
   const [Count1, setCount1] = useState(0);
   const [Count2, setCount2] = useState(0);
+  const [Count3, setCount3] = useState(0);
   const [walletbalance, setwalletbalance] = useState<number>(0);
 
   const peraWallet = new PeraWalletConnect({
@@ -143,7 +145,49 @@ function App() {
     }
     setVoteState2("Vote");
   };
+  const addC3 = async () => {
+    if (!currentAccount) {
+      console.log("Please connect wallet");
+      return;
+    }
 
+    let sender = currentAccount;
+    let appArgs = [];
+    appArgs.push(new Uint8Array(Buffer.from("AddC3")));
+    let params = await algodClient.getTransactionParams().do();
+    const txn = algosdk.makeApplicationNoOpTxn(
+      sender,
+      params,
+      app_address,
+      appArgs
+    );
+    let txId = txn.txID().toString();
+
+    // time to sign . . . which we have to do with walletconnect
+    const SignerTransaction = [{ txn }];
+
+    setVoteState3("Sign txn in wallet");
+    const result = await peraWallet.signTransaction([SignerTransaction]);
+    const decodedResult = result.map((element: any) => {
+      return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+    });
+    // send and await
+    setVoteState3("Processing. . .");
+    await algodClient.sendRawTransaction(decodedResult as any).do();
+    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    let transactionResponse = await algodClient
+      .pendingTransactionInformation(txId)
+      .do();
+    console.log("Called app-id:", transactionResponse["txn"]["txn"]["apid"]);
+    if (transactionResponse["global-state-delta"] !== undefined) {
+      console.log(
+        "Global State updated:",
+        transactionResponse["global-state-delta"]
+      );
+      await getCount();
+    }
+    setVoteState3("Vote");
+  };
   const getBalance = async () => {
     if (!currentAccount) {
       console.log("Please connect wallet");
@@ -197,12 +241,13 @@ function App() {
   return (
     <div className="mainContainer">
       <div className="dataContainer">
-        <div className="header">🎧︎ What kind of music do you like?</div>
+        <div className="header">Select one of the best holiday destination</div>
         <div className="bio">
-          Vote for the better music genre. Ensure your wallet is set to the{" "}
-          <b>testnet</b>.
+          Vote for the best holiday places for vacations with family.
+          <div className="bio">Ensure your wallet is set to the{" "}</div>
+
         </div>
-        <div className="bio">Rules: Unlimited voting, get to clicking!</div>
+        <div className="bio">Rules: Unlimited voting, get to clicking on picture!</div>
 
         {!currentAccount && (
           <button className="walletButton" onClick={handleConnectWalletClick}>
@@ -229,20 +274,28 @@ function App() {
             )}
             {walletbalance > 0.01 && (
               <>
-                <div className="songs-container">
-                  <div className="song-card">
-                    <div className="title">EDM</div>
+                <div className="holiday-container">
+                  <div className="holiday-card">
+                    <div className="title">GREECE</div>
                     <div className="count">{Count1}</div>
                     <button className="mathButton" onClick={addC1}>
                       {voteState1}
                     </button>
                   </div>
-                  <div className="song-card">
-                    <div className="title">Pop</div>
+                  <div className="holiday-card">
+                    <div className="title">BALI</div>
                     <div className="count">{Count2}</div>
                     <button className="mathButton" onClick={addC2}>
                       {voteState2}
                     </button>
+                    </div>
+                  <div className="holiday-card">
+                    <div className="title">MALDIVAS</div>
+                    <div className="count">{Count3}</div>
+                    <button className="mathButton" onClick={addC3}>
+                      {voteState3}
+                    </button>
+                    
                   </div>
                 </div>
               </>
