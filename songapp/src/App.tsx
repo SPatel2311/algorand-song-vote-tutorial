@@ -211,6 +211,8 @@ function App() {
     setCount1(globalState[0]["value"]["uint"]);
     console.log("Count2: ", globalState[1]["value"]["uint"]);
     setCount2(globalState[1]["value"]["uint"]);
+    console.log("Count3: ", globalState[1]["value"]["uint"]);
+    setCount3(globalState[2]["value"]["uint"]);
   };
 
   useEffect(() => {
@@ -234,6 +236,7 @@ function App() {
     getCount();
     setVoteState1("Vote");
     setVoteState2("Vote");
+    setVoteState3("vote");
     getBalance();
     console.log("currentAccount:", currentAccount);
   }, [currentAccount]);
@@ -288,14 +291,13 @@ function App() {
                     <button className="mathButton" onClick={addC2}>
                       {voteState2}
                     </button>
-                    </div>
+                  </div>
                   <div className="holiday-card">
                     <div className="title">MALDIVAS</div>
                     <div className="count">{Count3}</div>
                     <button className="mathButton" onClick={addC3}>
                       {voteState3}
                     </button>
-                    
                   </div>
                 </div>
               </>
