@@ -3,7 +3,7 @@ import algosdk from "algosdk";
 dotenv.config();
 
 //adding my mnemic
-let myaccount = algosdk.mnemonicToSecretKey("tourist dose diesel spell safe brick size concert cycle camp elder income toilet maximum distance inflict demand buyer label patch flag three want absent celery");
+let myaccount = algosdk.mnemonicToSecretKey("gallery inside silver police mystery ginger coil place party shove boss trim easy slab radar matrix multiply equal amused rocket material side check abandon rude");
 
 // To define algorand network (Public testnet API)
 const baseServer = "https://testnet-api.algonode.cloud";
@@ -47,7 +47,7 @@ const algodClient = new algosdk.Algodv2("", baseServer, "");
     await algodClient.sendRawTransaction(signedTxn).do();
 
     // Wait for confirmation
-    let confirmedTxn = await algosdk.waitForConfirmation(algodClient,txId, 4);
+    let confirmedTxn = await algosdk.waitForConfirmation(algodClient,txId, 2);
     accountInfo = await algodClient.accountInformation(myaccount.addr).do();
     console.log("Transaction Amount: %d microAlgos",confirmedTxn.txn.txn.amt);
     console.log("Transaction Fee: %d microAlgos",confirmedTxn.txn.txn.fee);

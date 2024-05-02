@@ -7,7 +7,7 @@ const baseServer = "https://testnet-api.algonode.cloud";
 
 const algodClient = new algosdk.Algodv2('', baseServer, '');
 
-let myaccount = algosdk.mnemonicToSecretKey("tourist dose diesel spell safe brick size concert cycle camp elder income toilet maximum distance inflict demand buyer label patch flag three want absent celery");
+let myaccount = algosdk.mnemonicToSecretKey("gallery inside silver police mystery ginger coil place party shove boss trim easy slab radar matrix multiply equal amused rocket material side check abandon rude");
 let sender = myaccount.addr;
 
 async function compileProgram(client, TealSource) {
@@ -24,7 +24,7 @@ async function compileProgram(client, TealSource) {
     try {
     const localInts = 0;
     const localBytes = 0;
-    const globalInts = 2;
+    const globalInts = 3;
     const globalBytes = 0;
     
     const approvalProgramfile = await open(
@@ -69,7 +69,7 @@ async function compileProgram(client, TealSource) {
     await algodClient.sendRawTransaction(signedTxn).do();
     
     // Wait for confirmation
-    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    await algosdk.waitForConfirmation(algodClient, txId, 3);
 
     // print the app-id
     let transactionResponse = await algodClient

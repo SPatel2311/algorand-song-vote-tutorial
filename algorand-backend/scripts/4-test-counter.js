@@ -12,9 +12,9 @@ client.getApplicationByID(index).do();
     }
 }
 // Application ID
-let index = 644293583;
+let index = 655453266;
 //Make sure you change it to yours.
-let myaccount = algosdk.mnemonicToSecretKey("tourist dose diesel spell safe brick size concert cycle camp elder income toilet maximum distance inflict demand buyer label patch flag three want absent celery");
+let myaccount = algosdk.mnemonicToSecretKey("gallery inside silver police mystery ginger coil place party shove boss trim easy slab radar matrix multiply equal amused rocket material side check abandon rude");
 
 let sender = myaccount.addr;
 
@@ -44,7 +44,7 @@ appArgs2.push(new Uint8Array(Buffer.from(deduct)));
     let signedTxn = txn.signTxn(myaccount.sk);
     console.log("Signed transaction with txID: %s", txId);
     await algodClient.sendRawTransaction(signedTxn).do();
-    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    await algosdk.waitForConfirmation(algodClient, txId, 3);
 
     // display results
     let transactionResponse = await algodClient
@@ -67,7 +67,7 @@ appArgs2.push(new Uint8Array(Buffer.from(deduct)));
         let signedTxn2 = txn2.signTxn(myaccount.sk);
         console.log("Signed transaction with txID: %s", txId2);
         await algodClient.sendRawTransaction(signedTxn2).do();
-        await algosdk.waitForConfirmation(algodClient, txId2, 2);
+        await algosdk.waitForConfirmation(algodClient, txId2, 3);
         // display results
         let transactionResponse2 = await algodClient
             .pendingTransactionInformation(txId2)

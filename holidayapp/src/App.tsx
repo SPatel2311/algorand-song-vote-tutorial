@@ -10,9 +10,13 @@ function App() {
   const [voteState1, setVoteState1] = useState("Vote");
   const [voteState2, setVoteState2] = useState("Vote");
   const [voteState3, setVoteState3] = useState("Vote");
+
   const [Count1, setCount1] = useState(0);
   const [Count2, setCount2] = useState(0);
   const [Count3, setCount3] = useState(0);
+
+  
+
   const [walletbalance, setwalletbalance] = useState<number>(0);
 
   const peraWallet = new PeraWalletConnect({
@@ -21,8 +25,9 @@ function App() {
     shouldShowSignTxnToast: true,
   });
 
+  
   // CHANGE THIS TO YOUR APP ID
-  const app_address: number = 644305908;
+  const app_address: number = 655962399;
   // CHANGE THIS TO YOUR APP ID
 
   const baseServer = "https://testnet-api.algonode.cloud";
@@ -86,7 +91,7 @@ function App() {
     });
     setVoteState1("Processing. . .");
     await algodClient.sendRawTransaction(decodedResult as any).do();
-    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    await algosdk.waitForConfirmation(algodClient, txId, 3);
     console.log("Adding to Count1");
     let transactionResponse = await algodClient
       .pendingTransactionInformation(txId)
@@ -131,7 +136,7 @@ function App() {
     // send and await
     setVoteState2("Processing. . .");
     await algodClient.sendRawTransaction(decodedResult as any).do();
-    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    await algosdk.waitForConfirmation(algodClient, txId, 3);
     let transactionResponse = await algodClient
       .pendingTransactionInformation(txId)
       .do();
@@ -145,12 +150,13 @@ function App() {
     }
     setVoteState2("Vote");
   };
+
+  //Third add is here
   const addC3 = async () => {
     if (!currentAccount) {
       console.log("Please connect wallet");
       return;
     }
-
     let sender = currentAccount;
     let appArgs = [];
     appArgs.push(new Uint8Array(Buffer.from("AddC3")));
@@ -167,14 +173,19 @@ function App() {
     const SignerTransaction = [{ txn }];
 
     setVoteState3("Sign txn in wallet");
+
     const result = await peraWallet.signTransaction([SignerTransaction]);
+
+    //const result = await connector.sendCustomRequest(request);
     const decodedResult = result.map((element: any) => {
       return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
     });
-    // send and await
+
+    //send and await
     setVoteState3("Processing. . .");
     await algodClient.sendRawTransaction(decodedResult as any).do();
-    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    await algosdk.waitForConfirmation(algodClient, txId, 3);
+    console.log("Adding to Count3");
     let transactionResponse = await algodClient
       .pendingTransactionInformation(txId)
       .do();
@@ -211,7 +222,7 @@ function App() {
     setCount1(globalState[0]["value"]["uint"]);
     console.log("Count2: ", globalState[1]["value"]["uint"]);
     setCount2(globalState[1]["value"]["uint"]);
-    console.log("Count3: ", globalState[1]["value"]["uint"]);
+    console.log("Count3: ", globalState[2]["value"]["uint"]);
     setCount3(globalState[2]["value"]["uint"]);
   };
 
@@ -236,7 +247,7 @@ function App() {
     getCount();
     setVoteState1("Vote");
     setVoteState2("Vote");
-    setVoteState3("vote");
+    setVoteState3("Vote");
     getBalance();
     console.log("currentAccount:", currentAccount);
   }, [currentAccount]);
@@ -248,13 +259,13 @@ function App() {
         <div className="bio">
           Vote for the best holiday places for vacations with family.
           <div className="bio">Ensure your wallet is set to the{" "}</div>
-
+          <b>testnet</b>.
         </div>
-        <div className="bio">Rules: Unlimited voting, get to clicking on picture!</div>
+        <div className="bio">Rules: Unlimited voting, get to clicking!</div>
 
         {!currentAccount && (
           <button className="walletButton" onClick={handleConnectWalletClick}>
-            Connect Wallet
+            Connect your peraWallet
           </button>
         )}
 
@@ -281,6 +292,7 @@ function App() {
                   <div className="holiday-card">
                     <div className="title">GREECE</div>
                     <div className="count">{Count1}</div>
+                    
                     <button className="mathButton" onClick={addC1}>
                       {voteState1}
                     </button>
@@ -288,6 +300,7 @@ function App() {
                   <div className="holiday-card">
                     <div className="title">BALI</div>
                     <div className="count">{Count2}</div>
+                    
                     <button className="mathButton" onClick={addC2}>
                       {voteState2}
                     </button>
@@ -295,10 +308,12 @@ function App() {
                   <div className="holiday-card">
                     <div className="title">MALDIVAS</div>
                     <div className="count">{Count3}</div>
+                   
                     <button className="mathButton" onClick={addC3}>
                       {voteState3}
                     </button>
                   </div>
+                  
                 </div>
               </>
             )}
@@ -311,7 +326,7 @@ function App() {
           </>
         )}
       </div>
-    </div>
+    </div> 
   );
 }
 
