@@ -79,9 +79,9 @@ if __name__ == "__main__":
     
     path = "./contracts/artifacts"
     
-    with open(os.path.join(path, "songvote_approval.teal"), 'w') as f:
+    with open(os.path.join(path, "holidayvote_approval.teal"), 'w') as f:
         f.write(approval_program())
     
-    with open(os.path.join(path, "songvote_clear.teal"), 'w') as f:
+    with open(os.path.join(path, "holidayvote_clear.teal"), 'w') as f:
         f.write(clear_state_program())
     

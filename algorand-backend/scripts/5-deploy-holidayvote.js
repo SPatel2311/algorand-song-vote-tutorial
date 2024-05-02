@@ -7,7 +7,7 @@ const baseServer = "https://testnet-api.algonode.cloud";
 
 const algodClient = new algosdk.Algodv2('', baseServer, '');
 
-let myaccount = algosdk.mnemonicToSecretKey("gallery inside silver police mystery ginger coil place party shove boss trim easy slab radar matrix multiply equal amused rocket material side check abandon rude");
+let myaccount = algosdk.mnemonicToSecretKey("wool lunch lazy ball couch cycle dumb disagree kiwi spin meat must siren olympic blossom cream vivid squirrel tuition proud parent poet tissue abandon reveal");
 let sender = myaccount.addr;
 
 async function compileProgram(client, TealSource) {
